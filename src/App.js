@@ -15,7 +15,8 @@ function App() {
       <hr/>
       {list.map((task,i) => {
         return( 
-        <TaskList key = {i} item ={task}/>
+        <TaskList key = {i} item ={task}/> 
+        
       )
       })}
     </div>
