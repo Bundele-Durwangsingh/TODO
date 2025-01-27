@@ -4,7 +4,6 @@ import React from 'react'
 function TaskInput(props) {
     const[inputText,setInput] = useState('');
   return (
-    
     <div>
         <input type='text' 
         className="inputBox" 
@@ -15,10 +14,11 @@ function TaskInput(props) {
             }}></input>
         <button className='add-btn'
         onClick={()=> {
-            props.taskList(inputText)
-            setInput("")
+            if (inputText.trim() !== "") {
+                props.taskList(inputText)
+                setInput("")
+            }
             }}>+</button>
-        
     </div>
   )
 }
