@@ -5,7 +5,10 @@ function TaskList(props) {
     <li className='Item-List'>
         {props.item} 
         <span className='icon'>
-            <i class="fa-solid fa-trash">
+            <i class="fa-solid fa-trash"
+            onClick={e=> {
+                props.deleteTask(props.index)
+            }}>
                 </i>
                 </span>
     </li>

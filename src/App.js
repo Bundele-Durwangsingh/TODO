@@ -8,6 +8,11 @@ function App() {
   let taskList=(inputText)=>{
     setList([...list,inputText]);
   }
+  const deleteTask =  (key)=> {
+    let newList =[...list];
+    newList.splice(key,1)
+    setList([...newList])
+  }
   return (
     <div className="App">
       <TaskInput taskList={taskList}/>
@@ -15,7 +20,7 @@ function App() {
       <hr/>
       {list.map((task,i) => {
         return( 
-        <TaskList key = {i} item ={task}/> 
+        <TaskList key = {i} item ={task} deleteTask={deleteTask} index ={i}/> 
         
       )
       })}
