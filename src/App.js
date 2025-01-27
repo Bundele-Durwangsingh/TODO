@@ -15,8 +15,9 @@ function App() {
   }
   return (
     <div className="App">
-      <TaskInput taskList={taskList}/>
       <h1 className='heading'>Todo App</h1>
+      <TaskInput taskList={taskList}/>
+      
       <hr/>
       {list.map((task,i) => {
         return( 
