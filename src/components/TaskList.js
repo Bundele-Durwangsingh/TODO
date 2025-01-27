@@ -12,7 +12,6 @@ function TaskList(props) {
                 </i>
                 </span>
     </li>
-
     )
 }
 
