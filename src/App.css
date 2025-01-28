@@ -1,3 +1,4 @@
+/* General Styling */
 .App {
   display: flex;
   flex-direction: column;
@@ -6,24 +7,28 @@
   min-height: 100vh;
   background: linear-gradient(to bottom, #56ccf2, #2f80ed);
   font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
+/* Container */
 .todo-container {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 350px;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
-  margin-top: 20px;
 }
 
+/* Heading */
 .heading {
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
+/* Input Box */
 .inputBox {
   width: 70%;
   padding: 10px;
@@ -32,6 +37,7 @@
   font-size: 1rem;
 }
 
+/* Add Button */
 .add-btn {
   background: #8e44ad;
   color: white;
@@ -41,21 +47,37 @@
   cursor: pointer;
   font-size: 1.2rem;
   margin-left: 10px;
+  transition: background 0.3s ease-in-out;
 }
 
 .add-btn:hover {
   background: #732d91;
 }
 
+/* Search Input */
+.input {
+  width: 100%;  /* Ensure it adjusts with container */
+  max-width: 320px;  /* Matches the task input width */
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Prevents overflow issues */
+}
+
+/* Todo List */
 .todo-list {
   background: white;
   border-radius: 12px;
   padding: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 320px;
+  width: 100%;
+  max-width: 380px;
   margin-top: 10px;
 }
 
+/* Task Items */
 .Item-List {
   display: flex;
   justify-content: space-between;
@@ -65,34 +87,75 @@
   border-radius: 8px;
   margin: 8px 0;
   font-size: 1rem;
+  transition: background 0.3s ease-in-out;
 }
 
-.Item-List span {
-  margin-left: auto;
-  padding-left: 20px;
+/* Task Item Text */
+.task-text {
+  flex: 1;
+  text-align: left;
+  font-size: 1rem;
+  color: #333;
 }
 
+/* Icon */
 .icon {
   cursor: pointer;
   color: #e74c3c;
   font-size: 1.4rem;
   padding: 5px;
+  transition: color 0.3s ease-in-out;
 }
 
 .icon:hover {
   color: #c0392b;
 }
 
+/* Clear Button */
 .clear-btn {
   background: #8e44ad;
   color: white;
   border: none;
-  padding: 8px 15px;
+  padding: 10px 15px;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
+  font-size: 1rem;
+  transition: background 0.3s ease-in-out;
 }
 
 .clear-btn:hover {
   background: #732d91;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 480px) {
+  .todo-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .inputBox, .input {
+    width: 100%;
+  }
+
+  .add-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .todo-list {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .Item-List {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .icon {
+    align-self: flex-end;
+  }
 }

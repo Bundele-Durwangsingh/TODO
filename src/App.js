@@ -1,33 +1,41 @@
-import { useState } from 'react';
 import './App.css';
 import TaskInput from './components/TaskInput';
 import TaskList from './components/TaskList';
+import useTaskList from './hooks/useTaskList';
+import { useState } from "react";
 
 function App() {
-  const [list, setList] = useState([]);
-
-  const taskList = (inputText) => {
-    setList([...list, inputText]);
-  };
-
-  const deleteTask = (index) => {
-    setList(list.filter((_, i) => i !== index));
-  };
+  const { list, addTask, deleteTask, clearTasks } = useTaskList();
+  const [search, setSearch] = useState('');
 
   return (
     <div className="App">
       <div className="todo-container">
         <h1 className="heading">Todo App</h1>
-        <TaskInput taskList={taskList} />
+        <TaskInput taskList={addTask} />
+        <input
+          type="text"
+          className="input"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search..."
+        />
         <hr />
         <div className="todo-list">
-          {list.map((task, i) => (
-            <TaskList key={i} item={task} deleteTask={deleteTask} index={i} />
-          ))}
+          {list
+            .filter((task) =>
+              task.text.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((task) => (
+              <TaskList
+                key={task.id}
+                item={task}
+                deleteTask={deleteTask}
+              />
+            ))}
         </div>
         <p>You have {list.length} pending tasks</p>
         {list.length > 0 && (
-          <button className="clear-btn" onClick={() => setList([])}>
+          <button className="clear-btn" onClick={clearTasks}>
             Clear All
           </button>
         )}
