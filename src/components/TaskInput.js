@@ -1,31 +1,26 @@
-import { useState } from "react";
-import React from "react";
+import { useState } from "react"
+import React from 'react'
 
-function TaskInput({ taskList }) {
-  const [inputText, setInput] = useState("");
-
+function TaskInput(props) {
+    const[inputText,setInput] = useState('');
   return (
     <div>
-      <input
-        type="text"
-        className="inputBox"
-        placeholder="Enter your task"
+        <input type='text' 
+        className="inputBox" 
+        placeholder='Enter your task' 
         value={inputText}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button
-        className="add-btn"
-        onClick={() => {
-          if (inputText.trim() !== "") {
-            taskList(inputText); // Pass only the text
-            setInput("");
-          }
-        }}
-      >
-        +
-      </button>
+        onChange={e=>{
+            setInput(e.target.value)
+            }}></input>
+        <button className='add-btn'
+        onClick={()=> {
+            if (inputText.trim() !== "") {
+                props.taskList(inputText)
+                setInput("")
+            }
+            }}>+</button>
     </div>
-  );
+  )
 }
 
-export default TaskInput;
+export default TaskInput
