@@ -6,8 +6,8 @@ const useTaskList = () => {
 
   const addTask = (taskText) => {
     const newTask = {
-      id: uuidv4(),
-      text: taskText,
+      id: uuidv4(), 
+      text: taskText, 
     };
     setList((prevList) => [...prevList, newTask]);
   };
