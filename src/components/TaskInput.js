@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 
-function TaskInput({ taskList }) {
+function TaskInput({ addTask }) {
   const [inputText, setInput] = useState("");
 
   return (
@@ -17,7 +17,7 @@ function TaskInput({ taskList }) {
         className="add-btn"
         onClick={() => {
           if (inputText.trim() !== "") {
-            taskList(inputText); 
+            addTask(inputText);
             setInput("");
           }
         }}
