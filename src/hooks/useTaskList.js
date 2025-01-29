@@ -1,47 +1,35 @@
 import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { db, tasksCollection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "../firebase";
 
 const useTaskList = () => {
-  const [list, setList] = useState(() => {
-    const savedTasks = localStorage.getItem("task");
-    return savedTasks ? JSON.parse(savedTasks) : [];
-  });
+  const [list, setList] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("task", JSON.stringify(list));
-  }, [list]);
+    const unsubscribe = onSnapshot(tasksCollection, (snapshot) => {
+      const tasks = snapshot.docs.map((doc) => ({ id: doc.id, text: doc.data().text }));
+      setList(tasks);
+    });
 
-  const addTask = (taskText) => {
-    const newTask = {
-      id: uuidv4(),
-      text: taskText,
-    };
-    setList((prevList) => {
-      const newList = [...prevList, newTask];
-      localStorage.setItem("task", JSON.stringify(newList));
-      return newList;
+    return () => unsubscribe();
+  }, []);
+
+  const addTask = async (taskText) => {
+    await addDoc(tasksCollection, { text: taskText });
+  };
+
+
+  const deleteTask = async (taskId) => {
+    await deleteDoc(doc(db, "tasks", taskId));
+  };
+
+  const clearTasks = async () => {
+    const querySnapshot = await getDocs(tasksCollection);
+    querySnapshot.forEach(async (task) => {
+      await deleteDoc(doc(db, "tasks", task.id));
     });
   };
 
-  const deleteTask = (taskId) => {
-    setList((prevList) => {
-      const newList = prevList.filter((task) => task.id !== taskId);
-      localStorage.setItem("task", JSON.stringify(newList));
-      return newList;
-    });
-  };
-
-  const clearTasks = () => {
-    setList([]);
-    localStorage.removeItem("task");
-  };
-
-  return {
-    list,
-    addTask,
-    deleteTask,
-    clearTasks,
-  };
+  return { list, addTask, deleteTask, clearTasks };
 };
 
 export default useTaskList;
